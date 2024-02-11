@@ -6,9 +6,9 @@
     <title>goit-js-hw-11</title>
     
     <script type="module" crossorigin src="/vanilla-app-template/commonHelpers.js"></script>
-    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/vendor-5b791d57.js">
+    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/vendor-5401a4b0.js">
     <link rel="stylesheet" href="/vanilla-app-template/assets/vendor-cf6910df.css">
-    <link rel="stylesheet" href="/vanilla-app-template/assets/index-02181eef.css">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/index-b8305c73.css">
   </head>
   <body>
     <form class="form">
@@ -20,12 +20,15 @@
           required
         />
       </label>
-      <button type="submit">Search</button>
+      <button class="search" type="submit">Search</button>
     </form>
-    <div class="loader">Loading...</div>
     <div class="js-gallery-elem container">
       <!-- <ul class="gallery"></ul> -->
     </div>
+    <button class="js-load-more button-load is-hidden" type="submit">
+      Load more
+    </button>
+    <div class="loader is-hidden">Loading...</div>
     
   </body>
 </html>
