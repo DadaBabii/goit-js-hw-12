@@ -18,8 +18,6 @@ let scrollHeiht = 0;
 
 
 
-// hideLoader();
-// hideLoaderBtn();
  
 const lightbox = new SimpleLightbox('.gallery a', {
         captionDelay: 250,
@@ -122,8 +120,6 @@ function renderImages(array) {
       </a>
     </div>`}).join('');   
     galleryEl.insertAdjacentHTML('beforeend', markup);
-    
-    
     
     lightbox.refresh();
       
