@@ -25,6 +25,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 
 formEl.addEventListener('submit', onSubmit);
 
+
 async function onSubmit(e) {
     e.preventDefault();
     showLoader();
@@ -32,22 +33,24 @@ async function onSubmit(e) {
     q = formEl.elements.query.value.trim();
     currentPage = 1;
     galleryEl.innerHTML = "";
-
-    const data = await getPhotoBySearch();
-    totalPages = Math.ceil(data.totalHits / data.hits.length);
-    checkPages();
-    // console.log(totalPages);
-    renderImages(data.hits);
-    // 
-       
+    try {
+        const data = await getPhotoBySearch();
+        totalPages = Math.ceil(data.totalHits / data.hits.length);
+        if (totalPages >= currentPage) {
+            renderImages(data.hits);
+            checkPages();           
+        } else renderError();
+      
+    
+    } catch (error) {
+      console.log("error");
+    };
+      
     hideLoader();
-    // showLoaderBtn();
     formEl.reset();
            
     
 };
-
-  
 
 async function getPhotoBySearch() {
     const BASE_URL = 'https://pixabay.com/api/';
@@ -68,23 +71,13 @@ async function getPhotoBySearch() {
     };
     
     try {
-    const res = await axios.get(BASE_URL, options);
-                     
-        
-        if (res.data.total === 0) {
-           
-            renderError();
-            return hideLoaderBtn();
-                        
-        }
-        console.log(res.data);
-            return res.data;
+        const res = await axios.get(BASE_URL, options);
+        return res.data;
    
     } catch (error) {
         console.log('Результатів не знайдено.');
     };
-
-     
+  
 };
 
 loadMoreBtn.addEventListener('click', onloadMore);
@@ -128,7 +121,6 @@ function renderImages(array) {
 
 function renderError() {
     galleryEl.innerHTML = "";
-    // totalPages = 0;
     hideLoaderBtn();
     hideLoader();
     formEl.reset();
@@ -137,7 +129,8 @@ function renderError() {
         color: 'red',
         position: 'topRight',
         maxWidth: '400px',
-        timeout: '3000',
+        timeout: 2500,
+        // disable: false,
     });
    
     
@@ -145,24 +138,21 @@ function renderError() {
 };
 
 function renderEndOfCollection() {
-    // hideLoaderBtn();
+    hideLoaderBtn();
     iziToast.show({
         message: `We're sorry, but you've reached the end of search results.`,
         color: 'blue',
         position: 'topRight',
         maxWidth: '400px',
+        timeout: 2500,
     });
-     
-    
     
 };
+
+
 function checkPages() {
     const isLastPage = currentPage === totalPages;
-    console.log(isLastPage);
-    console.log(currentPage);
-        console.log(totalPages);
-
-    if (isLastPage) {
+     if (isLastPage) {
         renderEndOfCollection();
              
     } else showLoaderBtn();
@@ -186,8 +176,6 @@ function showLoader() {
 function hideLoader() {
   loaderEl.classList.add('is-hidden');;
 }
-
-
 
 function getScrollHeight() { 
 const thumbEl = document.querySelector('.thumb');
