@@ -119,6 +119,7 @@ img {
   gap: 8px;
   border-radius: 5px;
   background-color: #ffefc8;
+ 
 }
 
 .thumb img {
@@ -127,3 +128,34 @@ img {
   height: 240px;
   object-fit: cover;
 }
+
+.loader {
+    display: flex;
+      margin: auto;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: center;
+    }
+
+.button-load {
+  
+  display: block;
+  margin: 40px auto 0px auto;
+  height: 40px;
+    padding: 4px 12px;
+    border-radius: 5px;
+    border: solid #fea34e 3px;
+    ;
+    background-color: #ffefc8;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  
+  .button-load:hover {
+    background-color: #fea34e;
+  }
+
+    .is-hidden {
+    display: none;
+  }
